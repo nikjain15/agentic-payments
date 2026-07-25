@@ -1,22 +1,27 @@
-# Agentic Payments Infrastructure
+# Agentic Payments
 
-Payment delegation layer for AI agents acting on behalf of users.
+**Payment-delegation infrastructure for AI agents: a credential vault plus a scoped authorization layer, so an agent can transact on your behalf without ever holding your card.**
 
-## Documentation
+> **Status:** design phase. Sharing the approach and seeking feedback.
 
-- **[STRATEGY.md](docs/STRATEGY.md)** — Problem, solution, integration approach
-- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** — System design and components
-- **[TERMINOLOGY.md](docs/TERMINOLOGY.md)** — Payment and protocol terms
+## The problem
 
-## Overview
+AI agents can now decide *what* to buy, but there's no safe, standard way for them to *pay*. Every payment rail assumes a human clicking "confirm." If agents are going to transact, someone has to build the delegation and scoped-authorization layer that lets an agent spend within the boundaries a human sets, and nothing more.
 
-**Problem:** No standardized infrastructure for AI agents to execute payments with user authorization and spending controls.
+## The approach
 
-**Solution:** Credential vault + authorization layer enabling secure payment delegation to AI agents.
+- **Credential vault** — secrets never touch the agent; it receives scoped, revocable tokens, not your card.
+- **Authorization layer** — per-agent spending controls: limits, allowlists, expiry, and human-in-the-loop for anything outside the mandate.
 
-**Status:** Design phase — [feedback welcome](https://github.com/nikjain15?tab=repositories)
+## Docs
 
-## License
+- [`STRATEGY.md`](STRATEGY.md) — problem, solution, and integration approach
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) — system design and core components
+- [`TERMINOLOGY.md`](TERMINOLOGY.md) — payment and protocol concepts
 
-MIT
+## Related
 
+Part of the broader **Agent Commerce OS** work: see [agent-commerce-os](https://github.com/nikjain15/agent-commerce-os) for the commerce-protocol SDK.
+
+---
+MIT © Nik Jain
