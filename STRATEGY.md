@@ -38,8 +38,6 @@ A simple infrastructure layer that sits between users' payment methods and AI ag
 
 ## Why It Matters for Agentic Commerce
 
-###Impact
-
 ### Users
 Set up payment once. Authorize multiple agents from a single dashboard. Control spending with per-agent limits. Revoke access instantly. See every transaction across all agents.
 
@@ -60,43 +58,27 @@ UCP defines how platforms discover business capabilities and execute checkout se
 - Payment handler abstraction (tokenization, detokenization)
 - Identity linking via OAuth
 
-**Where we fit:** We become the credential provider that UCP checkout flows integrate with. When a platform needs to complete a checkout, they can:
-1. Call our API to get a pre-authorized payment token (if user authorized this agent)
+**Where we fit:** We become the credential provider that UCP checkout flows integrate with. When a platform needs to complete a checkout, it can:
+1. Call our API to get a pre-authorized payment token (if the user authorized this agent)
 2. Submit that token to UCP's tokenization handler
 3. Complete the checkout
 
-We also extend UCP's identity linking scope to include "payment credential management"—users authorize agents to access their payment methods via OAuth scopes.
+We also extend UCP's identity-linking scope to include payment-credential management: users authorize agents to access their payment methods via OAuth scopes.
 
 ### ACP (Agentic Commerce Protocol)
-ACP defines how ChatGPT completes checkouts with merchants via a REST API. It includes:
+ACP defines how agents complete checkouts with merchants via a REST API. It includes:
 - Checkout session creation and updates
 - Delegate payment API (submit credentials, get tokens)
 - Order webhooks for updates
 
-**Where we fit:** We become the credential vault that ACP agents reference. When ChatGPT (or another agent) wants to complete a checkout:
-1. Integration with Protocols
-
-### UCP (Universal Commerce Protocol)
-UCP defines checkout session management, payment handlers, and identity linking via OAuth. 
-
-This infrastructure integrates as a credential provider:
-- Platforms call the API to get pre-authorized payment tokens
-- Tokens work with UCP's tokenization handler
-- Extends OAuth scopes to include payment credential management
-
-### ACP (Agentic Commerce Protocol)
-ACP defines how agents complete checkouts via REST API, including the delegate_payment endpoint.
-
-This infrastructure acts as the credential vault:
-- Agents call the API with user authorization (OAuth token)
-- Returns payment tokens for specific merchants and amounts
-- Tokens work with ACP's delegate_payment flow
-- Provides the missing user consent and authorization layer
+**Where we fit:** We become the credential vault that ACP agents reference. When an agent wants to complete a checkout, it:
+- Calls our API with the user's authorization (OAuth token)
+- Receives payment tokens scoped to specific merchants and amounts
+- Uses those tokens with ACP's delegate_payment flow
+- Relies on us for the missing user-consent and authorization layer, with every transaction logged for audit and user visibility
 
 ### Complementary Approach
-This doesn't replace UCP or ACP. It fills the gap both protocols assume but don't specify: **How users authorize agents to access payment credentials.
-- Logs all transactions for audit trail and user visibility
-- Integrates with both UCP and ACP checkout flows
+This does not replace UCP or ACP. It fills the gap both protocols assume but do not specify: how users authorize agents to access their payment credentials.
 
 ---
 
@@ -108,9 +90,10 @@ This doesn't replace UCP or ACP. It fills the gap both protocols assume but don'
 ❌ Fraud/risk analysis (PSPs do this)
 ❌ Analytics platforms (nice-to-have, not core)
 ❌ Budget management apps (user dashboards are simple, not comprehensive)
-Core Components
 
-###Scope
+---
+
+## Scope
 
 **Building:**
 - Credential vault and tokenization
