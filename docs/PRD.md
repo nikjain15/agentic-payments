@@ -137,7 +137,7 @@ These are proposed targets for a future implementation, not measured results.
 
 ---
 
-## 7. Roadmap — Now / Next / Later
+## 7. Roadmap - Now / Next / Later
 
 **Now (this repository, design stage)**
 - Thesis, problem framing, and positioning (this PRD).

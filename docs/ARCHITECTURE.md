@@ -40,7 +40,7 @@ into the vault.
 
 ---
 
-## 3. Diagram 1 — Delegation and authorization flow
+## 3. Diagram 1 - Delegation and authorization flow
 
 How a mandate is set once, then how a single payment request is evaluated and either issued a
 scoped token or escalated to the human.
@@ -86,7 +86,7 @@ approvals for out-of-mandate spend are per-transaction, not a blanket raise of t
 
 ---
 
-## 4. Diagram 2 — Credential-vault trust boundary
+## 4. Diagram 2 - Credential-vault trust boundary
 
 Where secrets live, what crosses the boundary, and what never does.
 

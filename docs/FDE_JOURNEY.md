@@ -107,5 +107,5 @@ The gate to widen or cut over is the same three-part test used in serious modern
 A realistic first forward-deployed slice: one merchant, one PSP, one agent platform, a low-cap
 mandate for an internal cohort, shadow mode into a tightly-capped parallel run, full audit streaming
 to their tooling, and a documented parity/sign-off gate before any expansion. The deliverable is not
-"agents can now spend freely" — it is *"agents can spend exactly within the limits a human set, with
+"agents can now spend freely" - it is *"agents can spend exactly within the limits a human set, with
 proof, and we can turn it off in one click."*

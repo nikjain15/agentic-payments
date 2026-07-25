@@ -62,9 +62,9 @@ Merchant Charges → Log Transaction
 ```
 
 ### Security Layers
-1. **Never store raw cards** — only Stripe tokens
-2. **Encrypt all tokens** — AES-256 encryption
-3. **Bind payment tokens** — to checkout, merchant, amount
-4. **Expire quickly** — 15-minute limit on payment tokens
-5. **Log everything** — complete audit trail
+1. **Never store raw cards** - only Stripe tokens
+2. **Encrypt all tokens** - AES-256 encryption
+3. **Bind payment tokens** - to checkout, merchant, amount
+4. **Expire quickly** - 15-minute limit on payment tokens
+5. **Log everything** - complete audit trail
 
