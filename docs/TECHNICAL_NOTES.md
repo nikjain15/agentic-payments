@@ -1,6 +1,6 @@
 # Technical Notes: Rubric Scorecard (Design-Stage)
 
-> **Status: design / thesis artifact — scored honestly.** This repository contains design
+> **Status: design / thesis artifact - scored honestly.** This repository contains design
 > documents, not code. The 12-point rubric below is scored for a *design-stage* artifact: a high
 > score means the design *reasoning* is strong and explicit, not that anything is built. Where the
 > rubric asks about implementation (running code, live evals, deployed guardrails), the honest
@@ -17,7 +17,7 @@
 | 3 | Tools / MCP (schemas, validation, errors) | 3.5 | Single narrow public surface (`authorize-payment`) with a clear contract: bounded inputs (grant, merchant, amount, context), and **structured denials** (machine-readable reason) rather than free-text errors. Least-surface-area is an explicit design choice. | No published JSON schema, no versioning story, no idempotency-key spec for retried requests yet. |
 | 4 | Agents & skills | 2.5 | Clear separation of concerns: the agent proposes, the engine disposes. The agent holds a grant that is *not spendable alone*. | This repo does not implement an agent; it defines the layer an agent calls. Fine for scope, but nothing to run. |
 | 5 | Orchestration & routing (multi-model, cost) | 2.0 | Correctly out of scope for the authorization layer: routing lives in the agent platform above. The design avoids over-building. | No cost model for token issuance at scale, no throughput/latency budget for the engine. |
-| 6 | RAG & context (retrieval, failure modes) | 2.5 | The authorization engine "retrieves" the user's mandate and the vault reference deterministically (a lookup, not a vector search) — appropriate, since guessing is unacceptable when money moves. Audit-log retrieval powers the dashboard. | Anomaly detection over the audit log (the one place retrieval/embeddings could help) is roadmap only. |
+| 6 | RAG & context (retrieval, failure modes) | 2.5 | The authorization engine "retrieves" the user's mandate and the vault reference deterministically (a lookup, not a vector search) - appropriate, since guessing is unacceptable when money moves. Audit-log retrieval powers the dashboard. | Anomaly detection over the audit log (the one place retrieval/embeddings could help) is roadmap only. |
 | 7 | Evals & grounding | 2.0 | [EVALS.md](EVALS.md) lays out the eval ladder this *would* need (deterministic policy unit tests → adversarial mandate-bypass suite → red-team → shadow-mode A/B) with named metrics (unauthorized-spend rate, false-deny rate, revocation-propagation latency). | Nothing implemented. Explicitly a roadmap, not a harness. |
 | 8 | Code quality | 1.5 | No code, so no code quality to score. Design docs are structured and internally consistent. | The top-level `STRATEGY.md` has visible copy-paste artifacts (duplicated "Integration with Protocols" sections, a broken markdown heading `###Impact`). Flagged for cleanup. |
 | 9 | Scalability & cost | 2.5 | Stateless authorization evaluation and short-lived tokens scale horizontally; the vault is the one stateful, isolated bottleneck by design. | No quantified targets (requests/sec, token-mint latency, vault QPS), no cost-per-authorization estimate. |
@@ -53,7 +53,7 @@ threat-modeled or implemented.
   deny. There is no "full access" grant to misuse.
 - **Scoped, delegated tokens.** Payment tokens are single-use, bound to a specific merchant and
   amount, short TTL, and signed. A leaked token is worth one bounded purchase, once, at one merchant,
-  for a short window — not a card.
+  for a short window - not a card.
 - **Secret custody.** Raw PANs never enter the system; the vault holds PSP tokenization references,
   encrypted at rest, in the highest-trust isolated zone. A vault breach yields references, not
   spendable numbers: bounded blast radius.
@@ -84,7 +84,7 @@ are claimed, because none have been measured.
 
 ## 5. Honest gaps summary
 
-1. No running code, tests, or evals — everything in [EVALS.md](EVALS.md) is a plan.
+1. No running code, tests, or evals - everything in [EVALS.md](EVALS.md) is a plan.
 2. Security model is sound in principle but not threat-modeled; key management and replay defense
    are unspecified.
 3. Top-level `STRATEGY.md` has copy-paste and heading artifacts worth cleaning up (does not affect
