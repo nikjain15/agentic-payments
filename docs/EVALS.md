@@ -14,7 +14,7 @@ testing, not LLM judging.
 
 ## 1. The eval ladder
 
-### Tier 1 - Deterministic policy unit tests (the foundation)
+### Tier 1, Deterministic policy unit tests (the foundation)
 The authorization engine is rules, so it must be exhaustively unit-tested like rules.
 
 - Every mandate dimension (per-transaction cap, daily cap, velocity, merchant allowlist, category,
@@ -24,7 +24,7 @@ The authorization engine is rules, so it must be exhaustively unit-tested like r
 - **Metrics:** branch/decision coverage of the policy evaluator (target near-complete);
   zero known allow-when-should-deny cases.
 
-### Tier 2 - Adversarial mandate-bypass suite
+### Tier 2, Adversarial mandate-bypass suite
 Treat the agent as hostile and try to spend outside the mandate.
 
 - Amount just over cap, split purchases to evade a daily cap, replay of a single-use token,
@@ -33,7 +33,7 @@ Treat the agent as hostile and try to spend outside the mandate.
 - **Metrics:** unauthorized-spend rate under adversarial load (**target zero**); replay-success rate
   (target zero); revocation-propagation latency distribution.
 
-### Tier 3 - LLM-judge (only above the trust boundary)
+### Tier 3, LLM-judge (only above the trust boundary)
 The LLM is not in the authorization path, so LLM-judging applies to the *agent's* behavior and to
 anomaly explanations, never to allow/deny decisions.
 
@@ -42,11 +42,11 @@ anomaly explanations, never to allow/deny decisions.
 - Judge whether agent-facing denial messages are actionable without leaking policy internals.
 - **Metrics:** explanation-faithfulness rate; leak rate of sensitive mandate detail.
 
-### Tier 4 - Red-team / security review
+### Tier 4, Red-team / security review
 Human adversarial testing plus formal threat modeling of token signing, key management, and the
 mandate policy language as an attack surface. This is a gate, not a metric: no live pilot without it.
 
-### Tier 5 - Shadow-mode and A/B in a live environment
+### Tier 5, Shadow-mode and A/B in a live environment
 As described in [FDE_JOURNEY.md](FDE_JOURNEY.md): evaluate decisions with no value moving, then a
 capped parallel run.
 
@@ -73,6 +73,6 @@ capped parallel run.
 ## 3. What is implemented today
 
 Nothing. This is a design artifact. The first buildable slice ([PRD.md](PRD.md), "Next") would start
-at Tier 1 - a deterministic policy evaluator with an exhaustive unit suite and an adversarial
-bypass suite - because for a system that moves money, that base tier is the minimum bar before any
+at Tier 1, a deterministic policy evaluator with an exhaustive unit suite and an adversarial
+bypass suite, because for a system that moves money, that base tier is the minimum bar before any
 token is ever issued for real value.
