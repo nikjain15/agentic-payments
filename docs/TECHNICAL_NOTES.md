@@ -19,7 +19,7 @@
 | 5 | Orchestration & routing (multi-model, cost) | 2.0 | Correctly out of scope for the authorization layer: routing lives in the agent platform above. The design avoids over-building. | No cost model for token issuance at scale, no throughput/latency budget for the engine. |
 | 6 | RAG & context (retrieval, failure modes) | 2.5 | The authorization engine "retrieves" the user's mandate and the vault reference deterministically (a lookup, not a vector search), appropriate, since guessing is unacceptable when money moves. Audit-log retrieval powers the dashboard. | Anomaly detection over the audit log (the one place retrieval/embeddings could help) is roadmap only. |
 | 7 | Evals & grounding | 2.0 | [EVALS.md](EVALS.md) lays out the eval ladder this *would* need (deterministic policy unit tests → adversarial mandate-bypass suite → red-team → shadow-mode A/B) with named metrics (unauthorized-spend rate, false-deny rate, revocation-propagation latency). | Nothing implemented. Explicitly a roadmap, not a harness. |
-| 8 | Code quality | 1.5 | No code, so no code quality to score. Design docs are structured and internally consistent. | The top-level `STRATEGY.md` has visible copy-paste artifacts (duplicated "Integration with Protocols" sections, a broken markdown heading `###Impact`). Flagged for cleanup. |
+| 8 | Code quality | 1.5 | No code, so no code quality to score. Design docs are structured and internally consistent; `STRATEGY.md` headings and sections are clean. | No executable artifact exists, so maintainability, style, and test coverage cannot be scored; this reflects design-doc quality only. |
 | 9 | Scalability & cost | 2.5 | Stateless authorization evaluation and short-lived tokens scale horizontally; the vault is the one stateful, isolated bottleneck by design. | No quantified targets (requests/sec, token-mint latency, vault QPS), no cost-per-authorization estimate. |
 | 10 | Guardrails & safety | 4.0 | **Centerpiece, and the strongest dimension.** Least-privilege by construction, default-deny engine, secret never leaves the vault, single-use merchant+amount-bound short-TTL tokens, instant server-side revocation, append-only tamper-evident audit, human-in-the-loop for out-of-mandate spend, and a bounded breach blast radius (vault holds references, not PANs). See section 3. | Not yet threat-modeled formally; token signing, replay defense, and key management are described in principle but not specified. |
 | 11 | Product layer (PRD) | 4.0 | [PRD.md](PRD.md) has crisp personas, JTBD, a safety north-star metric (unauthorized-spend rate), explicit non-goals, four named tradeoffs, and a Now/Next/Later roadmap. Positioning ("OAuth for spend") is sharp and correctly scoped against ACP/UCP. | Success metrics are targets, not measured; regulatory scoping is an open question. |
@@ -87,6 +87,4 @@ are claimed, because none have been measured.
 1. No running code, tests, or evals, everything in [EVALS.md](EVALS.md) is a plan.
 2. Security model is sound in principle but not threat-modeled; key management and replay defense
    are unspecified.
-3. Top-level `STRATEGY.md` has copy-paste and heading artifacts worth cleaning up (does not affect
-   the design's substance).
-4. Regulatory and dispute/chargeback flows are open questions, not designs.
+3. Regulatory and dispute/chargeback flows are open questions, not designs.
